@@ -8,6 +8,6 @@ public class UserController {
 
     @RequestMapping("/")
     public String index() {
-        return "index.html";
+        return "Hello";
     }
 }
