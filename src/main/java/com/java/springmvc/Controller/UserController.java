@@ -1,5 +1,7 @@
 package com.java.springmvc.Controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,11 +29,14 @@ public class UserController {
 
     @RequestMapping("/admin/user")
     public String getUserPage(Model model) {
+        List<User> users = this.userService.handleGetAllUsers();
+        model.addAttribute("users", users);
         return "admin/user/table-user";
     }
 
     @RequestMapping("/admin/user/create")
     public String getCreateUserPage(Model model) {
+        model.addAttribute("newUser", new User());
         return "admin/user/create";
     }
 
@@ -39,7 +44,7 @@ public class UserController {
     public String getUserForm(
             @ModelAttribute("newUser") User user,
             Model model) {
-        System.out.println(user);
-        return "Hello";
+        this.userService.handleCreateUser(user);
+        return "redirect:/admin/user";
     }
 }
