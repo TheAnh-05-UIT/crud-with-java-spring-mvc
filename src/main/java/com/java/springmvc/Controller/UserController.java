@@ -37,7 +37,7 @@ public class UserController {
     @RequestMapping("/admin/user/create")
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
-        return "admin/user/create";
+        return "admin/user/create-user";
     }
 
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
