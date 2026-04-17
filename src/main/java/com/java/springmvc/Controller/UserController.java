@@ -66,17 +66,38 @@ public class UserController {
     public String getUpdateUserPage(
             @PathVariable("id") Long id,
             Model model) {
-        User userById = this.userService.handleGetUserById(id);
-        model.addAttribute("updateUser", userById);
+        User updateUserById = this.userService.handleGetUserById(id);
+        model.addAttribute("updateUser", updateUserById);
         return "admin/user/update-user";
     }
 
+    // url lấy thông tin của user từ FE để BE xử lý
     @RequestMapping(value = "/admin/user/update", method = RequestMethod.POST)
     public String getUpdateUserForm(
             @ModelAttribute("updateUser") User user,
             Model model) {
-        model.addAttribute("updateUser", new User());
+        // System.out.print(user.getId());
+        // model.addAttribute("updateUser", new User());
         this.userService.handleUpdateUserById(user.getId(), user);
+        return "redirect:/admin/user";
+    }
+
+    // url xóa 1 người dùng theo id
+    @RequestMapping(value = "/admin/user/delete/{id}")
+    public String getDeleteUserPage(
+            @PathVariable("id") Long id,
+            Model model) {
+        model.addAttribute("id", id);
+        model.addAttribute("deleteUser", new User());
+        return "admin/user/delete-user";
+    }
+
+    @RequestMapping(value = "/admin/user/delete", method = RequestMethod.POST)
+    public String getDeleteUserConfirm(
+            @ModelAttribute("deleteUser") User user,
+            Model model) {
+        // model.addAttribute("deleteUser", new User());
+        this.userService.handleDeleteUserById(user.getId());
         return "redirect:/admin/user";
     }
 }

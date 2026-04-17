@@ -46,4 +46,11 @@ public class UserService {
         updateUserById.setPhone(user.getPhone());
         return this.userRepository.save(updateUserById);
     }
+
+    public void handleDeleteUserById(Long id) {
+        User deleteUserById = this.handleGetUserById(id);
+        if (deleteUserById != null) {
+            this.userRepository.deleteById(id);
+        }
+    }
 }
