@@ -1,6 +1,7 @@
 package com.java.springmvc.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,14 @@ public class UserService {
 
     public List<User> handleGetAllUsers() {
         return this.userRepository.findAll();
+    }
+
+    public User handleGetUserById(Long id) {
+        Optional<User> getUserById = this.userRepository.findById(id);
+
+        if (getUserById.isPresent()) {
+            return getUserById.get();
+        }
+        return null;
     }
 }
