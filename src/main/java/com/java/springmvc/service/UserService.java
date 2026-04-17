@@ -37,4 +37,13 @@ public class UserService {
         }
         return null;
     }
+
+    public User handleUpdateUserById(Long id, User user) {
+        User updateUserById = this.handleGetUserById(id);
+        // updateUserById.setEmail(user.getEmail());
+        updateUserById.setFullName(user.getFullName());
+        updateUserById.setAddress(user.getAddress());
+        updateUserById.setPhone(user.getPhone());
+        return this.userRepository.save(updateUserById);
+    }
 }

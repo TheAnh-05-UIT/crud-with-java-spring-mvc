@@ -25,27 +25,29 @@
                                 <div class="mb-3">
                                     <label class="form-label">ID</label>
                                     <form:input type="text" class="form-control bg-light text-muted"
-                                        value="${userById.id}" path="id" readonly="true" />
+                                        value="${updateUser.id}" path="id" readonly="true"
+                                        style="cursor:default; pointer-events:none;" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <form:input type="email" class="form-control" path="email"
-                                        value="${userById.email}" />
+                                    <form:input type="email" class="form-control bg-light text-muted" path="email"
+                                        value="${updateUser.email}" readonly="true"
+                                        style="cursor:default; pointer-events:none;" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Phone Number</label>
                                     <form:input type="text" class="form-control" path="phone"
-                                        value="${userById.phone}" />
+                                        value="${updateUser.phone}" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Full Name</label>
                                     <form:input type="text" class="form-control" path="fullName"
-                                        value="${userById.fullName}" />
+                                        value="${updateUser.fullName}" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Address</label>
                                     <form:input type="text" class="form-control" path="address"
-                                        value="${userById.address}" />
+                                        value="${updateUser.address}" />
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </form:form>

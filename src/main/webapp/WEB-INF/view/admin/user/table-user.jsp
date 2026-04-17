@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-            <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+        <a%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+            <a%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
                 <html lang="en">
 
                 <head>
@@ -46,8 +46,10 @@
                                                 <td>
                                                     <a href="/admin/user/${u.id}" type="button"
                                                         class="btn btn-success">View</a>
-                                                    <button type="button" class="btn btn-danger mx-2">Update</button>
-                                                    <button type="button" class="btn btn-warning">Delete</button>
+                                                    <a href="/admin/user/update/${u.id}" type="button"
+                                                        class="btn btn-danger mx-2">Update</a>
+                                                    <a href="/admin/user/delete/${u.id}" type="button"
+                                                        class="btn btn-warning">Delete</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
