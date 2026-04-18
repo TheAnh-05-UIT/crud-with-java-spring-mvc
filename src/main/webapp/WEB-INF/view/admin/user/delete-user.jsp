@@ -34,6 +34,9 @@
                                         <form:input type="text" class="form-control bg-light text-muted" value="${id}"
                                             path="id" readonly="true" style="cursor:default; pointer-events:none;" />
                                     </div>
+                                    <a href="/admin/user" class="btn btn-success">
+                                        Back
+                                    </a>
                                     <button class="btn btn-danger">
                                         Confirm
                                     </button>

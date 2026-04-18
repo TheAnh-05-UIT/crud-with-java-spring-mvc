@@ -46,9 +46,9 @@
                                                 <td>
                                                     <a href="/admin/user/${u.id}" type="button"
                                                         class="btn btn-success">View</a>
-                                                    <a href="/admin/user/delete/${u.id}" type="button"
-                                                        class="btn btn-warning mx-2">Update</a>
                                                     <a href="/admin/user/update/${u.id}" type="button"
+                                                        class="btn btn-warning mx-2">Update</a>
+                                                    <a href="/admin/user/delete/${u.id}" type="button"
                                                         class="btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
