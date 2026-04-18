@@ -24,6 +24,10 @@ public class Product {
     private String factory;
     private String target;
 
+    // product one to many order_detail
+    // @OneToMany(mappedBy = "product")
+    // private List<orderDetail> orderDetails;
+
     public Long getId() {
         return id;
     }
