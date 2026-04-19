@@ -34,7 +34,7 @@ public class UserController {
     public String getUserPage(Model model) {
         List<User> users = this.userService.handleGetAllUsers();
         model.addAttribute("users", users);
-        return "admin/user/table-user";
+        return "admin/user/view-user";
     }
 
     // url trang hiện thị thông tin có id tương ứng
@@ -42,7 +42,7 @@ public class UserController {
     public String getUserById(Model model, @PathVariable("id") Long id) {
         User userById = this.userService.handleGetUserById(id);
         model.addAttribute("userById", userById);
-        return "admin/user/view-user";
+        return "admin/user/detail-user";
     }
 
     // url trang tạo 1 user mới
