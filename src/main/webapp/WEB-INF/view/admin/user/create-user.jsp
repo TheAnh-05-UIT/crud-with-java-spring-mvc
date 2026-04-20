@@ -14,6 +14,18 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#avatarFile");
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreview").attr("src", imgURL);
+                            $("#avatarPreview").css({ "display": "block" });
+                        });
+                    });
+                </script>
                 <title>Create User</title>
             </head>
 
@@ -34,31 +46,53 @@
                                     </li>
                                 </ol>
                                 <div class="container mt-5">
-                                    <div class="row">
+                                    <div class="row g-3">
                                         <div class="col-md-6 col-12 mx-auto">
                                             <h3>Create a user</h3>
                                             <hr>
-                                            <form:form method="POST" action="/admin/user/create"
+                                            <form:form class="row" method="POST" action="/admin/user/create"
                                                 modelAttribute="newUser">
-                                                <div class="mb-3">
+                                                <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Email</label>
-                                                    <form:input type="email" class="form-control" path="email" />
+                                                    <form:input type="email" class="form-control" path="email"
+                                                        placeholder="Email" />
                                                 </div>
-                                                <div class="mb-3">
+                                                <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Password</label>
-                                                    <form:input type="password" class="form-control" path="password" />
+                                                    <form:input type="password" class="form-control" path="password"
+                                                        placeholder="Password" />
                                                 </div>
-                                                <div class="mb-3">
+                                                <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Phone Number</label>
-                                                    <form:input type="text" class="form-control" path="phone" />
+                                                    <form:input type="text" class="form-control" path="phone"
+                                                        placeholder="Phone Number" />
                                                 </div>
-                                                <div class="mb-3">
+                                                <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Full Name</label>
-                                                    <form:input type="text" class="form-control" path="fullName" />
+                                                    <form:input type="text" class="form-control" path="fullName"
+                                                        placeholder="Full Name" />
                                                 </div>
-                                                <div class="mb-3">
+                                                <div class="mb-3 col-12">
                                                     <label class="form-label">Address</label>
-                                                    <form:input type="text" class="form-control" path="address" />
+                                                    <form:input type="text" class="form-control" path="address"
+                                                        placeholder="Address" />
+                                                </div>
+                                                <div class="mb-3 col-12 col-md-6">
+                                                    <label class="form-label">Role</label>
+                                                    <form:select class="form-select" path="role.id">
+                                                        <!-- <option selected>Choose role</option> -->
+                                                        <form:option value="1">ADMIN</form:option>
+                                                        <form:option value="2">USER</form:option>
+                                                    </form:select>
+                                                </div>
+                                                <div class="mb-3 col-12 col-md-6">
+                                                    <label class="form-label" for="avatarFile">Avatar</label>
+                                                    <input class="form-control" type="file" id="avatarFile"
+                                                        accept=".png, .jpg, .jpeg" path="avatar">
+                                                </div>
+                                                <div>
+                                                    <img style="max-height: 250px; display: none;" alt="avatar"
+                                                        id="avatarFile">
                                                 </div>
                                                 <div class="d-flex justify-content-between">
                                                     <button type="submit" class="btn btn-primary">Create</button>
