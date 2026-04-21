@@ -51,7 +51,7 @@
                                             <h3>Create a user</h3>
                                             <hr>
                                             <form:form class="row" method="POST" action="/admin/user/create"
-                                                modelAttribute="newUser">
+                                                modelAttribute="newUser" enctype="multipart/form-data">
                                                 <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Email</label>
                                                     <form:input type="email" class="form-control" path="email"
@@ -79,20 +79,20 @@
                                                 </div>
                                                 <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Role</label>
-                                                    <form:select class="form-select" path="role.id">
-                                                        <!-- <option selected>Choose role</option> -->
-                                                        <form:option value="1">ADMIN</form:option>
-                                                        <form:option value="2">USER</form:option>
+                                                    <form:select class="form-select" path="role.name">
+                                                        <option selected>Choose role</option>
+                                                        <form:option value="ADMIN">ADMIN</form:option>
+                                                        <form:option value="USER">USER</form:option>
                                                     </form:select>
                                                 </div>
                                                 <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label" for="avatarFile">Avatar</label>
                                                     <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jpeg" path="avatar">
+                                                        accept=".png, .jpg, .jpeg" name="avatarFile" />
                                                 </div>
                                                 <div>
-                                                    <img style="max-height: 250px; display: none;" alt="avatar"
-                                                        id="avatarFile">
+                                                    <img style="max-height: 250px; max-width: 600px; display: none;"
+                                                        alt="avatar" id="avatarPreview">
                                                 </div>
                                                 <div class="d-flex justify-content-between">
                                                     <button type="submit" class="btn btn-primary">Create</button>
