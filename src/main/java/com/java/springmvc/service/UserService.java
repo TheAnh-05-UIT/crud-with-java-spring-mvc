@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,13 +24,16 @@ public class UserService {
     private final UserRepository userRepository;
     private final ServletContext servletContext;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository,
             ServletContext servletContext,
-            RoleRepository roleRepository) {
+            RoleRepository roleRepository,
+            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.servletContext = servletContext;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public String Program() {
@@ -37,6 +41,9 @@ public class UserService {
     }
 
     public User handleCreateUser(User user) {
+        String hashPassword = this.passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashPassword);
+        user.setRole(this.handleGetRoleByName(user.getRole().getName()));
         return this.userRepository.save(user);
     }
 
