@@ -59,6 +59,7 @@
                                                             <li class="list-group-item">Address: ${userById.address}
                                                             </li>
                                                             <li class="list-group-item">Phone: ${userById.phone}</li>
+                                                            <li class="list-group-item">Role: ${userById.role.name}</li>
                                                         </ul>
                                                     </div>
                                                     <a href="/admin/user" class="btn btn-success mt-3">Back</a>
