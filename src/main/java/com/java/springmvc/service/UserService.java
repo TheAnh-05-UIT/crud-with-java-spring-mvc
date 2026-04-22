@@ -10,7 +10,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.java.springmvc.domain.Role;
 import com.java.springmvc.domain.User;
+import com.java.springmvc.repository.RoleRepository;
 import com.java.springmvc.repository.UserRepository;
 
 import jakarta.servlet.ServletContext;
@@ -20,11 +22,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final ServletContext servletContext;
+    private final RoleRepository roleRepository;
 
     public UserService(UserRepository userRepository,
-            ServletContext servletContext) {
+            ServletContext servletContext,
+            RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.servletContext = servletContext;
+        this.roleRepository = roleRepository;
     }
 
     public String Program() {
@@ -85,5 +90,9 @@ public class UserService {
             e.printStackTrace();
         }
         return fileName;
+    }
+
+    public Role handleGetRoleByName(String roleName) {
+        return this.roleRepository.findByName(roleName);
     }
 }
