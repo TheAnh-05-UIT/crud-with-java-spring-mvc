@@ -1,20 +1,30 @@
 package com.java.springmvc.service;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.java.springmvc.domain.User;
 import com.java.springmvc.repository.UserRepository;
+
+import jakarta.servlet.ServletContext;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final ServletContext servletContext;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,
+            ServletContext servletContext) {
         this.userRepository = userRepository;
+        this.servletContext = servletContext;
     }
 
     public String Program() {
@@ -52,5 +62,28 @@ public class UserService {
         if (deleteUserById != null) {
             this.userRepository.deleteById(id);
         }
+    }
+
+    public String handleStorefile(MultipartFile file, String targetFolder) {
+        String fileName = "";
+        try {
+            byte[] bytes;
+            bytes = file.getBytes();
+
+            String rootPath = this.servletContext.getRealPath("/resources/images");
+            File dir = new File(rootPath + File.separator + "avatar");
+            if (!dir.exists())
+                dir.mkdirs();
+            // Create the file on server
+            fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+            File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
+            BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(serverFile));
+            stream.write(bytes);
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileName;
     }
 }
