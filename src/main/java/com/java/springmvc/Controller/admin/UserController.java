@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.java.springmvc.domain.User;
 import com.java.springmvc.service.UserService;
@@ -46,17 +50,20 @@ public class UserController {
     }
 
     // url trang tạo 1 user mới
-    @RequestMapping("/admin/user/create")
+    @GetMapping("/admin/user/create")
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create-user";
     }
 
     // url lấy thông tin của user từ FE để BE xử lý
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
+    @PostMapping("/admin/user/create")
     public String getUserForm(
             @ModelAttribute("newUser") User user,
-            Model model) {
+            Model model,
+            @RequestParam("avatarFile") MultipartFile file) {
+        String avatarName = this.userService.handleStorefile(file, "avatar");
+        user.setAvatar(avatarName);
         this.userService.handleCreateUser(user);
         return "redirect:/admin/user";
     }
@@ -92,6 +99,7 @@ public class UserController {
         return "admin/user/delete-user";
     }
 
+    // url confirm khi xóa 1 người dùng theo id
     @RequestMapping(value = "/admin/user/delete", method = RequestMethod.POST)
     public String getDeleteUserConfirm(
             @ModelAttribute("deleteUser") User user,
