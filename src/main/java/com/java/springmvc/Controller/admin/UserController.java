@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +24,7 @@ public class UserController {
     }
 
     // url trang chủ
-    @RequestMapping("/")
+    @GetMapping("/")
     public String getHomePage(Model model) {
         String test = this.userService.Program();
         model.addAttribute("Hello", test);
@@ -34,7 +32,7 @@ public class UserController {
     }
 
     // url trang user
-    @RequestMapping("/admin/user")
+    @GetMapping("/admin/user")
     public String getUserPage(Model model) {
         List<User> users = this.userService.handleGetAllUsers();
         model.addAttribute("users", users);
@@ -42,7 +40,7 @@ public class UserController {
     }
 
     // url trang hiện thị thông tin có id tương ứng
-    @RequestMapping("/admin/user/{id}")
+    @GetMapping("/admin/user/{id}")
     public String getUserById(Model model, @PathVariable("id") Long id) {
         User userById = this.userService.handleGetUserById(id);
         model.addAttribute("userById", userById);
@@ -69,7 +67,7 @@ public class UserController {
     }
 
     // url trang cập nhật thông tin user
-    @RequestMapping(value = "/admin/user/update/{id}")
+    @GetMapping("/admin/user/update/{id}")
     public String getUpdateUserPage(
             @PathVariable("id") Long id,
             Model model) {
@@ -79,18 +77,17 @@ public class UserController {
     }
 
     // url lấy thông tin của user từ FE để BE xử lý
-    @RequestMapping(value = "/admin/user/update", method = RequestMethod.POST)
+    @PostMapping("/admin/user/update")
     public String getUpdateUserForm(
             @ModelAttribute("updateUser") User user,
-            Model model) {
-        // System.out.print(user.getId());
-        // model.addAttribute("updateUser", new User());
-        this.userService.handleUpdateUserById(user.getId(), user);
+            Model model,
+            @RequestParam("updateFileAvatar") MultipartFile updateFile) {
+        this.userService.handleUpdateUserById(user.getId(), user, updateFile);
         return "redirect:/admin/user";
     }
 
     // url xóa 1 người dùng theo id
-    @RequestMapping(value = "/admin/user/delete/{id}")
+    @GetMapping("/admin/user/delete/{id}")
     public String getDeleteUserPage(
             @PathVariable("id") Long id,
             Model model) {
@@ -100,11 +97,10 @@ public class UserController {
     }
 
     // url confirm khi xóa 1 người dùng theo id
-    @RequestMapping(value = "/admin/user/delete", method = RequestMethod.POST)
+    @PostMapping("/admin/user/delete")
     public String getDeleteUserConfirm(
             @ModelAttribute("deleteUser") User user,
             Model model) {
-        // model.addAttribute("deleteUser", new User());
         this.userService.handleDeleteUserById(user.getId());
         return "redirect:/admin/user";
     }
