@@ -60,6 +60,11 @@
                                                             </li>
                                                             <li class="list-group-item">Phone: ${userById.phone}</li>
                                                             <li class="list-group-item">Role: ${userById.role.name}</li>
+                                                            <li class="list-group-item">Avatar:
+                                                                <img style="width: 100%;"
+                                                                    src="/images/avatar/${userById.avatar}"
+                                                                    alt="avatar file">
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                     <a href="/admin/user" class="btn btn-success mt-3">Back</a>
