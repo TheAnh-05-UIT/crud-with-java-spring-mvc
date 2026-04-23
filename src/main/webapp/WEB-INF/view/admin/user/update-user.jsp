@@ -14,6 +14,16 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#updateFileAvatar");
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreviewUpdate").attr("src", imgURL);
+                            $("#avatarPreviewUpdate").css({ "display": "block" });
+                        });
+                    });
+                </script>
                 <title>Update User</title>
             </head>
 
@@ -36,39 +46,56 @@
                                         </li>
                                     </ol>
                                     <div class="container mt-5">
-                                        <div class="row">
+                                        <div class="row g-3">
                                             <div class="col-md-6 col-12 mx-auto">
                                                 <h3>Update a user</h3>
                                                 <hr>
-                                                <form:form method="POST" action="/admin/user/update"
-                                                    modelAttribute="updateUser">
-                                                    <div class="mb-3">
+                                                <form:form class="row" method="POST" action="/admin/user/update"
+                                                    modelAttribute="updateUser" enctype="multipart/form-data">
+                                                    <div class="mb-3 col-12 col-md-6">
                                                         <label class="form-label">ID</label>
                                                         <form:input type="text" class="form-control bg-light text-muted"
                                                             value="${updateUser.id}" path="id" readonly="true"
                                                             style="cursor:default; pointer-events:none;" />
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="mb-3 col-12 col-md-6">
                                                         <label class="form-label">Email</label>
                                                         <form:input type="email"
                                                             class="form-control bg-light text-muted" path="email"
                                                             value="${updateUser.email}" readonly="true"
                                                             style="cursor:default; pointer-events:none;" />
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="mb-3 col-12 col-md-6">
                                                         <label class="form-label">Phone Number</label>
                                                         <form:input type="text" class="form-control" path="phone"
                                                             value="${updateUser.phone}" />
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="mb-3 col-12 col-md-6">
                                                         <label class="form-label">Full Name</label>
                                                         <form:input type="text" class="form-control" path="fullName"
                                                             value="${updateUser.fullName}" />
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="mb-3 col-12">
                                                         <label class="form-label">Address</label>
                                                         <form:input type="text" class="form-control" path="address"
                                                             value="${updateUser.address}" />
+                                                    </div>
+                                                    <div class="mb-3 col-12 col-md-6">
+                                                        <label class="form-label">Role</label>
+                                                        <form:select class="form-select" path="role.name">
+                                                            <option selected>Choose role</option>
+                                                            <form:option value="ADMIN">ADMIN</form:option>
+                                                            <form:option value="USER">USER</form:option>
+                                                        </form:select>
+                                                    </div>
+                                                    <div class="mb-3 col-12 col-md-6">
+                                                        <label class="form-label" for="updateFileAvatar">Avatar</label>
+                                                        <input class="form-control" type="file" id="updateFileAvatar"
+                                                            accept=".png, .jpg, .jpeg" name="updateFileAvatar" />
+                                                    </div>
+                                                    <div>
+                                                        <img style="max-height: 250px; max-width: 600px; display: none;"
+                                                            alt="avatar" id="avatarPreviewUpdate">
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <button type="submit" class="btn btn-primary">Update</button>
