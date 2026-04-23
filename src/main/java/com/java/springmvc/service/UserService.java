@@ -60,12 +60,22 @@ public class UserService {
         return null;
     }
 
-    public User handleUpdateUserById(Long id, User user) {
+    public User handleUpdateUserById(Long id, User user, MultipartFile file) {
         User updateUserById = this.handleGetUserById(id);
-        // updateUserById.setEmail(user.getEmail());
         updateUserById.setFullName(user.getFullName());
         updateUserById.setAddress(user.getAddress());
         updateUserById.setPhone(user.getPhone());
+
+        Role updateRoleName = this.handleGetRoleByName(user.getRole().getName());
+        updateUserById.setRole(updateRoleName);
+
+        String fileName = file.getOriginalFilename();
+        if (fileName != null && !fileName.equals("")) {
+            String updateFileName = this.handleStorefile(file, "avatar");
+            if (!updateFileName.equals("")) {
+                updateUserById.setAvatar(updateFileName);
+            }
+        }
         return this.userRepository.save(updateUserById);
     }
 
@@ -83,7 +93,7 @@ public class UserService {
             bytes = file.getBytes();
 
             String rootPath = this.servletContext.getRealPath("/resources/images");
-            File dir = new File(rootPath + File.separator + "avatar");
+            File dir = new File(rootPath + File.separator + targetFolder);
             if (!dir.exists())
                 dir.mkdirs();
             // Create the file on server
