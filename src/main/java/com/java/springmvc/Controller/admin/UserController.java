@@ -24,12 +24,12 @@ public class UserController {
     }
 
     // url trang chủ
-    @GetMapping("/")
-    public String getHomePage(Model model) {
-        String test = this.userService.Program();
-        model.addAttribute("Hello", test);
-        return "Hello";
-    }
+    // @GetMapping("/")
+    // public String getHomePage(Model model) {
+    // String test = this.userService.Program();
+    // model.addAttribute("Hello", test);
+    // return "Hello";
+    // }
 
     // url trang user
     @GetMapping("/admin/user")
