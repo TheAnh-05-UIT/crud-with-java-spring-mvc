@@ -87,6 +87,9 @@ public class UserService {
     }
 
     public String handleStorefile(MultipartFile file, String targetFolder) {
+        if (file.isEmpty()) {
+            return "";
+        }
         String fileName = "";
         try {
             byte[] bytes;
