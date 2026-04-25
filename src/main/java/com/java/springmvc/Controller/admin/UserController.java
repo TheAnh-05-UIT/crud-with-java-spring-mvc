@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.java.springmvc.domain.User;
 import com.java.springmvc.service.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
@@ -57,9 +60,14 @@ public class UserController {
     // url lấy thông tin của user từ FE để BE xử lý
     @PostMapping("/admin/user/create")
     public String getUserForm(
-            @ModelAttribute("newUser") User user,
+            @ModelAttribute("newUser") @Valid User user,
+            BindingResult newUserBindingResult,
             Model model,
             @RequestParam("avatarFile") MultipartFile file) {
+
+        if (newUserBindingResult.hasErrors()) {
+            return "admin/user/create-user";
+        }
         String avatarName = this.userService.handleStorefile(file, "avatar");
         user.setAvatar(avatarName);
         this.userService.handleCreateUser(user);
