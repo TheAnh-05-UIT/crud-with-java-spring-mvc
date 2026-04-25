@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.java.springmvc.domain.User;
+import com.java.springmvc.service.UploadFileService;
 import com.java.springmvc.service.UserService;
 
 import jakarta.validation.Valid;
@@ -20,10 +21,13 @@ import jakarta.validation.Valid;
 @Controller
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
+    private final UploadFileService uploadFileService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService,
+            UploadFileService uploadFileService) {
         this.userService = userService;
+        this.uploadFileService = uploadFileService;
     }
 
     // url trang chủ
@@ -69,7 +73,7 @@ public class UserController {
         if (newUserBindingResult.hasErrors()) {
             return "admin/user/create-user";
         }
-        String avatarName = this.userService.handleStorefile(file, "avatar");
+        String avatarName = this.uploadFileService.handleStorefile(file, "avatar");
         user.setAvatar(avatarName);
         this.userService.handleCreateUser(user);
         return "redirect:/admin/user";

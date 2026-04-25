@@ -1,9 +1,5 @@
 package com.java.springmvc.service;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,24 +12,22 @@ import com.java.springmvc.domain.User;
 import com.java.springmvc.repository.RoleRepository;
 import com.java.springmvc.repository.UserRepository;
 
-import jakarta.servlet.ServletContext;
-
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-    private final ServletContext servletContext;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UploadFileService uploadFileService;
 
     public UserService(UserRepository userRepository,
-            ServletContext servletContext,
             RoleRepository roleRepository,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder,
+            UploadFileService uploadFileService) {
         this.userRepository = userRepository;
-        this.servletContext = servletContext;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.uploadFileService = uploadFileService;
     }
 
     public String Program() {
@@ -71,7 +65,7 @@ public class UserService {
 
         String fileName = file.getOriginalFilename();
         if (fileName != null && !fileName.equals("")) {
-            String updateFileName = this.handleStorefile(file, "avatar");
+            String updateFileName = this.uploadFileService.handleStorefile(file, "avatar");
             if (!updateFileName.equals("")) {
                 updateUserById.setAvatar(updateFileName);
             }
@@ -84,32 +78,6 @@ public class UserService {
         if (deleteUserById != null) {
             this.userRepository.deleteById(id);
         }
-    }
-
-    public String handleStorefile(MultipartFile file, String targetFolder) {
-        if (file.isEmpty()) {
-            return "";
-        }
-        String fileName = "";
-        try {
-            byte[] bytes;
-            bytes = file.getBytes();
-
-            String rootPath = this.servletContext.getRealPath("/resources/images");
-            File dir = new File(rootPath + File.separator + targetFolder);
-            if (!dir.exists())
-                dir.mkdirs();
-            // Create the file on server
-            fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
-            File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
-            BufferedOutputStream stream = new BufferedOutputStream(
-                    new FileOutputStream(serverFile));
-            stream.write(bytes);
-            stream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return fileName;
     }
 
     public Role handleGetRoleByName(String roleName) {
