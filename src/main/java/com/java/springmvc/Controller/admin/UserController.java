@@ -65,6 +65,7 @@ public class UserController {
             Model model,
             @RequestParam("avatarFile") MultipartFile file) {
 
+        // validation
         if (newUserBindingResult.hasErrors()) {
             return "admin/user/create-user";
         }
