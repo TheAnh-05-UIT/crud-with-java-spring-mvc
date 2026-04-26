@@ -63,12 +63,13 @@
                                                                 <td>${p.price}</td>
                                                                 <td>${p.factory}</td>
                                                                 <td>
-                                                                    <a href="/admin/user/${p.id}" type="button"
+                                                                    <a href="/admin/product/${p.id}" type="button"
                                                                         class="btn btn-success">View</a>
-                                                                    <a href="/admin/user/update/${p.id}" type="button"
+                                                                    <a href="/admin/product/update/${p.id}"
+                                                                        type="button"
                                                                         class="btn btn-warning mx-2">Update</a>
-                                                                    <a href="/admin/user/delete/${p.id}" type="button"
-                                                                        class="btn btn-danger">Delete</a>
+                                                                    <a href="/admin/product/delete/${p.id}"
+                                                                        type="button" class="btn btn-danger">Delete</a>
                                                                 </td>
                                                             </tr>
                                                         </c:forEach>

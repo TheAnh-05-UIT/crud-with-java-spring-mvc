@@ -64,8 +64,7 @@
                                                 </div>
                                                 <div class="mb-3 col-12">
                                                     <label class="form-label">Detail description</label>
-                                                    <textarea class="form-control" rows="3"
-                                                        path="detailDesc"></textarea>
+                                                    <form:textarea class="form-control" rows="3" path="detailDesc" />
                                                 </div>
                                                 <div class="mb-3 col-12 col-md-6">
                                                     <label class="form-label">Short description</label>

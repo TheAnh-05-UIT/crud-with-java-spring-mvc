@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,5 +50,13 @@ public class ProductController {
         product.setImage(imageProductFile);
         this.productService.handleCreateProduct(product);
         return "redirect:/admin/product";
+    }
+
+    @GetMapping("/admin/product/{id}")
+    public String getProductById(@PathVariable("id") Long id,
+            Model model) {
+        Product productById = this.productService.handleGetProductById(id);
+        model.addAttribute("productById", productById);
+        return "/admin/product/detail-product";
     }
 }
