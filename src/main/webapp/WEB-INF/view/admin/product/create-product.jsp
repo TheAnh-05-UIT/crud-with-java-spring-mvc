@@ -18,15 +18,15 @@
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 <script>
                     $(document).ready(() => {
-                        const avatarFile = $("#imageFile");
-                        avatarFile.change(function (e) {
+                        const imageFile = $("#imageFile");
+                        imageFile.change(function (e) {
                             const imgURL = URL.createObjectURL(e.target.files[0]);
                             $("#imagePreview").attr("src", imgURL);
                             $("#imagePreview").css({ "display": "block" });
                         });
                     });
                 </script>
-                <title>Create User</title>
+                <title>Create Product</title>
             </head>
 
             <body class="sb-nav-fixed">
@@ -94,8 +94,8 @@
                                                     </form:select>
                                                 </div>
                                                 <div class="mb-3 col-12 col-md-6">
-                                                    <label class="form-label" for="imageFile">Avatar</label>
-                                                    <input class="form-control" type="file" id="imagerFile"
+                                                    <label class="form-label" for="imageFile">Image</label>
+                                                    <input class="form-control" type="file" id="imageFile"
                                                         accept=".png, .jpg, .jpeg" name="imageFile" />
                                                 </div>
                                                 <div>
