@@ -56,4 +56,11 @@ public class ProductService {
         }
         return this.productRepository.save(updateProductById);
     }
+
+    public void handleDeleteProductById(Long id) {
+        Product deleteProductById = this.handleGetProductById(id);
+        if (deleteProductById != null) {
+            this.productRepository.deleteById(id);
+        }
+    }
 }
