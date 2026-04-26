@@ -59,4 +59,20 @@ public class ProductController {
         model.addAttribute("productById", productById);
         return "/admin/product/detail-product";
     }
+
+    @GetMapping("/admin/product/update/{id}")
+    public String getUpdateProductPage(Model model,
+            @PathVariable("id") Long id) {
+        Product updateProductById = this.productService.handleGetProductById(id);
+        model.addAttribute("updateProduct", updateProductById);
+        return "/admin/product/update-product";
+    }
+
+    @PostMapping("/admin/product/update")
+    public String updateProductForm(Model model,
+            @ModelAttribute("updateProduct") Product updateProduct,
+            @RequestParam("updateImageFile") MultipartFile file) {
+        this.productService.handleUpdateProductById(updateProduct.getId(), updateProduct, file);
+        return "redirect:/admin/product";
+    }
 }
