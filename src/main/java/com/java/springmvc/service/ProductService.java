@@ -1,5 +1,7 @@
 package com.java.springmvc.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.java.springmvc.domain.Product;
@@ -12,6 +14,10 @@ public class ProductService {
 
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
+    }
+
+    public List<Product> handleGetAllProduct() {
+        return this.productRepository.findAll();
     }
 
     public Product handleCreateProduct(Product product) {
