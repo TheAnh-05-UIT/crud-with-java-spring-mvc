@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.java.springmvc.domain.Role;
 import com.java.springmvc.domain.User;
+import com.java.springmvc.domain.dto.RegisterDTO;
 import com.java.springmvc.repository.RoleRepository;
 import com.java.springmvc.repository.UserRepository;
 
@@ -82,5 +83,13 @@ public class UserService {
 
     public Role handleGetRoleByName(String roleName) {
         return this.roleRepository.findByName(roleName);
+    }
+
+    public User regiterDTOtoUser(RegisterDTO registerDTO) {
+        User user = new User();
+        user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
+        user.setEmail(registerDTO.getEmail());
+        user.setPassword(registerDTO.getPassword());
+        return user;
     }
 }
