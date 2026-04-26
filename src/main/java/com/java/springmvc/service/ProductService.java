@@ -1,6 +1,7 @@
 package com.java.springmvc.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,13 @@ public class ProductService {
 
     public Product handleCreateProduct(Product product) {
         return this.productRepository.save(product);
+    }
+
+    public Product handleGetProductById(Long id) {
+        Optional<Product> optionalProduct = this.productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            return optionalProduct.get();
+        }
+        return null;
     }
 }
