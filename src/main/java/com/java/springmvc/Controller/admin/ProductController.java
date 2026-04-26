@@ -1,5 +1,7 @@
 package com.java.springmvc.Controller.admin;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,9 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product")
-    public String getDashboardProduct() {
+    public String getDashboardProduct(Model model) {
+        List<Product> products = this.productService.handleGetAllProduct();
+        model.addAttribute("products", products);
         return "/admin/product/view-product";
     }
 
